@@ -1,6 +1,4 @@
-
-
-import { update } from './service-availability-slice.js';
+import {update} from './service-availability-slice.js';
 
 
 export default function startChecks(store) {
