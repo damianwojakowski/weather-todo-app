@@ -2,13 +2,9 @@ export default class WeatherService {
 
     constructor() {
         this.updateWeatherInfo = this.updateWeatherInfo.bind(this);
-        this.location = {
-            latitude: '',
-            longitude: ''
-        };
         this.API_KEY = "";
-        this.setApiKey();
         this.updateWeatherAction = null;
+        this.setApiKey();
     }
 
     setApiKey() {
@@ -27,7 +23,7 @@ export default class WeatherService {
     }
 
     getLocationAndUpdateWeather() {
-        if (!navigator.geolocation) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.updateWeatherInfo);
         } else {
             console.error("geolocation disabled or not supported by the browser");
@@ -35,12 +31,6 @@ export default class WeatherService {
     }
 
     updateWeatherInfo(location) {
-        this.location.latitude = location.coords.latitude;
-        this.location.longitude = location.coords.longitude;
-
-        console.log("this.position.latitude: ", this.location.latitude);
-        console.log("this.position.longitude: ", this.location.longitude);
-
         let url = 'https://api.openweathermap.org/data/2.5/onecall' +
             '?lat=' + location.coords.latitude +
             '&lon=' + location.coords.longitude +
