@@ -16,7 +16,8 @@ export default class WeatherService {
         if (apiKey) {
             this.API_KEY = process.env.REACT_APP_API_KEY;
         } else {
-            // TODO display info that API KEY is not set
+            console.error("REACT_APP_API_KEY not set");
+            //TODO display REACT_APP_API_KEY not set
         }
     }
 
@@ -29,6 +30,7 @@ export default class WeatherService {
             navigator.geolocation.getCurrentPosition(this.updateWeatherInfo);
         } else {
             // TODO show "please enable geolocation in your browser"
+            console.error("geolocation disabled or not supported by the browser");
         }
     }
 
@@ -48,11 +50,7 @@ export default class WeatherService {
             ))
             .catch(() => -2)
             .then((result) => {
-                // store.dispatch(update(result));
-                // if (result > 0) {
-                //     return 5000;
-                // }
-                // return 300;
+
                 console.log(result);
             });
     }
