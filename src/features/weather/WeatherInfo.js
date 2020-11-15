@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from "classnames";
 import ReactTooltip from 'react-tooltip';
 
@@ -22,3 +23,12 @@ export default function WeatherInfo(props) {
         <p>Wind Speed: {props.weatherInfo.wind_speed} <span>meter/sec</span></p>
     </div>);
 }
+
+WeatherInfo.propTypes = {
+    weatherInfo: PropTypes.shape({
+        temp: PropTypes.number,
+        pressure: PropTypes.number,
+        humidity: PropTypes.number,
+        wind_speed: PropTypes.number,
+    })
+};
