@@ -5,6 +5,6 @@ import updateWeatherReducer from '../features/weather/weather-reducer.js';
 export default configureStore({
     reducer: {
         serviceAvailability: serviceAvailabilityReducer,
-        updateWeatherReducer: updateWeatherReducer
+        weather: updateWeatherReducer
     },
 });

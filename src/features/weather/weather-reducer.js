@@ -1,15 +1,18 @@
-import {ACTIONS} from "./weather-actions";
+import {ACTIONS} from "./weather-actions.js";
 
 const initialState = {
     weatherInfo: {
-        "temp": 0
+        "temp": 0,
+        "pressure": 0,
+        "humidity": 0,
+        "weather": []
     }
 };
 
 function updateWeatherReducer(state = initialState, action) {
     if (action.type === ACTIONS.UPDATE) {
-       return Object.assign({}, state, {
-            weatherInfo: state.weatherInfo.concat(action.payload)
+        return Object.assign({}, state, {
+            weatherInfo: action.payload
         });
     }
 

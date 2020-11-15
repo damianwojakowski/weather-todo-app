@@ -8,6 +8,7 @@ export default class WeatherService {
         };
         this.API_KEY = "";
         this.setApiKey();
+        this.updateWeatherAction = null;
     }
 
     setApiKey() {
@@ -21,8 +22,9 @@ export default class WeatherService {
         }
     }
 
-    getCurrentWeather() {
+    getCurrentWeather(updateWeatherAction) {
         this.getLocationAndUpdateWeather();
+        this.updateWeatherAction = updateWeatherAction;
     }
 
     getLocationAndUpdateWeather() {
@@ -41,7 +43,14 @@ export default class WeatherService {
         console.log("this.position.latitude: ", this.location.latitude);
         console.log("this.position.longitude: ", this.location.longitude);
 
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${location.coords.latitude}&lon=${location.coords.longitude}&exclude=minutely,hourly,daily&appid=${this.API_KEY}`)
+        let url = 'https://api.openweathermap.org/data/2.5/onecall' +
+            '?lat=' + location.coords.latitude +
+            '&lon=' + location.coords.longitude +
+            '&exclude=minutely,hourly,daily' +
+            '&units=metric' +
+            '&appid=' + this.API_KEY;
+
+        fetch(url)
             .then(res => res.json())
             .then(data => (
                 data && data.current
@@ -50,7 +59,7 @@ export default class WeatherService {
             ))
             .catch(() => -2)
             .then((result) => {
-
+                this.updateWeatherAction(result.current);
                 console.log(result);
             });
     }
