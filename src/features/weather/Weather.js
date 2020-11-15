@@ -21,8 +21,7 @@ class Weather extends Component {
     }
 
     render() {
-        return <div>
-            <h3>Weather</h3>
+        return <div className="container">
             <div className="weather-icons">
                 {this.props.weatherInfo.weather.map((weather) => <WeatherIcon key={weather.id} weather={weather} />)}
             </div>

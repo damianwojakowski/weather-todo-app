@@ -8,7 +8,6 @@ class TodoList extends Component {
 
     render() {
         return <div className="container">
-            <h1>TODO List</h1>
             <table className="table table-striped">
                 <thead>
                     <tr>
