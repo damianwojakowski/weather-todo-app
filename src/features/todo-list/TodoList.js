@@ -26,6 +26,10 @@ class TodoList extends Component {
         </div>;
     }
 
+    componentDidMount() {
+
+    }
+
 }
 
 const mapStateToProps = state => {
