@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import WeatherService from "./WeatherService.js";
 import {updateWeather} from "./weather-actions.js";
 import WeatherIcon from './WeatherIcon';
@@ -48,3 +49,13 @@ const WeatherWrapper = connect(
 )(Weather);
 
 export default WeatherWrapper
+
+Weather.propTypes = {
+    weatherInfo: PropTypes.shape({
+        temp: PropTypes.number,
+        pressure: PropTypes.number,
+        humidity: PropTypes.number,
+        wind_speed: PropTypes.number,
+        weather: PropTypes.array
+    })
+};

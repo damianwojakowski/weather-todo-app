@@ -2,11 +2,11 @@ import {ACTIONS} from "./weather-actions.js";
 
 const initialState = {
     weatherInfo: {
-        "temp": 0,
-        "pressure": 0,
-        "humidity": 0,
-        "wind_speed": 0,
-        "weather": []
+        temp: 0,
+        pressure: 0,
+        humidity: 0,
+        wind_speed: 0,
+        weather: []
     }
 };
 
