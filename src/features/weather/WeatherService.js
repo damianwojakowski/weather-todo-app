@@ -3,7 +3,7 @@ export default class WeatherService {
     constructor() {
         this.updateWeatherInfo = this.updateWeatherInfo.bind(this);
         this.API_KEY = "";
-        this.updateWeatherAction = null;
+        this.updateWeather = null;
         this.setApiKey();
     }
 
@@ -17,9 +17,9 @@ export default class WeatherService {
         }
     }
 
-    getCurrentWeather(updateWeatherAction) {
+    getCurrentWeather(updateWeather) {
         this.getLocationAndUpdateWeather();
-        this.updateWeatherAction = updateWeatherAction;
+        this.updateWeather = updateWeather;
     }
 
     getLocationAndUpdateWeather() {
@@ -42,7 +42,7 @@ export default class WeatherService {
             .then(res => res.json())
             .then(data => (
                 data && data.current
-                    ? this.updateWeatherAction(data.current)
+                    ? this.updateWeather(data.current)
                     : null
             ))
             .catch(() => console.error("WEATHER API call failed"));

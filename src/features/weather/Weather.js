@@ -13,6 +13,11 @@ class Weather extends Component {
     constructor(props) {
         super(props);
         this.weatherService = new WeatherService();
+        this.updateWeather = this.updateWeather.bind(this);
+    }
+
+    updateWeather(weather) {
+        this.props.updateWeather(weather);
     }
 
     render() {
@@ -26,7 +31,7 @@ class Weather extends Component {
     }
 
     componentDidMount() {
-        this.weatherService.getCurrentWeather(this.props.updateWeatherAction);
+        this.weatherService.getCurrentWeather(this.updateWeather);
     }
 
 }
@@ -39,7 +44,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateWeatherAction: weatherInfo => dispatch(updateWeather(weatherInfo))
+        updateWeather: weatherInfo => dispatch(updateWeather(weatherInfo))
     };
 };
 
