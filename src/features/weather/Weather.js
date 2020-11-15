@@ -5,6 +5,8 @@ import {updateWeather} from "./weather-actions.js";
 import WeatherIcon from './WeatherIcon';
 import WeatherInfo from './WeatherInfo';
 
+import "./Weather.css";
+
 class Weather extends Component {
 
     constructor(props) {
@@ -15,7 +17,9 @@ class Weather extends Component {
     render() {
         return <div>
             <h3>Weather</h3>
-            {this.props.weatherInfo.weather.map((weather) => <WeatherIcon key={weather.id} weather={weather} />)}
+            <div className="weather-icons">
+                {this.props.weatherInfo.weather.map((weather) => <WeatherIcon key={weather.id} weather={weather} />)}
+            </div>
             <WeatherInfo weatherInfo={this.props.weatherInfo} />
         </div>;
     }
