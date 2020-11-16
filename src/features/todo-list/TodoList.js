@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import uuid from 'react-uuid';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {fetchTodos, createTodo, deleteTodo} from './todo-list-actions.js';
+import {fetchTodos, createTodo, deleteTodo, updateTodo} from './todo-list-actions.js';
 import TodoItem from './TodoItem.js';
 import TodoItemEditor from './TodoItemEditor.js';
 
@@ -97,7 +97,7 @@ class TodoList extends Component {
     }
 
     updateTodo(todoItem) {
-
+        this.props.updateTodo(todoItem);
     }
 
     deleteTodo(todoId) {
@@ -130,7 +130,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchTodos: todos => dispatch(fetchTodos()),
         createTodo: todo => dispatch(createTodo(todo)),
-        deleteTodo: todo => dispatch(deleteTodo(todo))
+        deleteTodo: todo => dispatch(deleteTodo(todo)),
+        updateTodo: todo => dispatch(updateTodo(todo)),
     };
 };
 

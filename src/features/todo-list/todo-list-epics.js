@@ -1,7 +1,7 @@
 import { ajax } from 'rxjs/ajax';
 import { ofType } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
-import {ACTIONS, listTodos, todoCreated, todoDeleted} from './todo-list-actions.js';
+import {ACTIONS, listTodos, todoCreated, todoDeleted, todoUpdated} from './todo-list-actions.js';
 
 const headers = {
     'Content-Type': 'application/json'
@@ -45,6 +45,26 @@ export const deleteTodo = action$ => action$.pipe(
         }).pipe(
             map(response => response.response.data),
             map(response => todoDeleted(response))
+        )
+    )
+);
+
+export const udateTodo = action$ => action$.pipe(
+    ofType(ACTIONS.UPDATE_TODO),
+    mergeMap(action =>
+        ajax({
+            url: `/api/todo/update`,
+            method: 'PUT',
+            headers: headers,
+            body: {
+                id: action.payload.id,
+                priority: action.payload.priority,
+                title: action.payload.title,
+                description: action.payload.description
+            }
+        }).pipe(
+            map(response => response.response.data),
+            map(response => todoUpdated(response))
         )
     )
 );

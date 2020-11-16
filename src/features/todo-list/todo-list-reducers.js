@@ -22,9 +22,18 @@ function todosReducer(state = initialState, action) {
             todos: state.todos.concat(action.payload)
         });
     } else if (action.type === ACTIONS.TODO_DELETED) {
-        console.log(action.payload);
         return Object.assign({}, state, {
             todos: state.todos.filter(todo => parseInt(todo.id) !== parseInt(action.payload.id))
+        });
+    } else if (action.type === ACTIONS.TODO_UPDATED) {
+        return Object.assign({}, state, {
+            todos: state.todos.map(todo => {
+                if (parseInt(todo.id) !== parseInt(action.payload.id)) {
+                    return todo;
+                } else {
+                    return action.payload;
+                }
+            })
         });
     }
 

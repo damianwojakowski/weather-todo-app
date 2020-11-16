@@ -4,7 +4,9 @@ export const ACTIONS = {
     CREATE_TODO: 'CREATE_TODO',
     TODO_CREATED: 'TODO_CREATED',
     DELETE_TODO: 'DELETE_TODO',
-    TODO_DELETED: 'TODO_DELETED'
+    TODO_DELETED: 'TODO_DELETED',
+    UPDATE_TODO: 'UPDATE_TODO',
+    TODO_UPDATED: 'TODO_UPDATED'
 };
 
 export function listTodos(payload) {
@@ -44,6 +46,20 @@ export function deleteTodo(payload) {
 export function todoDeleted(payload) {
     return {
         type: ACTIONS.TODO_DELETED,
+        payload
+    };
+}
+
+export function updateTodo(payload) {
+    return {
+        type: ACTIONS.UPDATE_TODO,
+        payload
+    };
+}
+
+export function todoUpdated(payload) {
+    return {
+        type: ACTIONS.TODO_UPDATED,
         payload
     };
 }
