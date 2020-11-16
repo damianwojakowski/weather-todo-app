@@ -101,7 +101,6 @@ class TodoList extends Component {
     }
 
     deleteTodo(todoId) {
-        console.log('deleteTodo ', todoId);
         this.props.deleteTodo(todoId);
     }
 
