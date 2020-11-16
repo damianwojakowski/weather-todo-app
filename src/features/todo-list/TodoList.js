@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {listTodos} from './todo-list-actions.js';
+import {fetchTodos} from './todo-list-actions.js';
 import TodoItem from './TodoItem.js';
 
 class TodoList extends Component {
@@ -27,7 +27,7 @@ class TodoList extends Component {
     }
 
     componentDidMount() {
-
+        this.props.fetchTodos();
     }
 
 }
@@ -40,7 +40,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        listTodos: todos => dispatch(listTodos(todos))
+        fetchTodos: todos => dispatch(fetchTodos())
     };
 };
 
