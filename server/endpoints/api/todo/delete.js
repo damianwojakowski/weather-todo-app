@@ -9,7 +9,15 @@ import AppException from '../../../exceptions/AppException.js';
  * @returns {Promise<Object|String>}
  */
 export default function todoDeleteHandler(server, req, res) {
-    return AppException.reject('Internal error', 'Deleting todos not implemented');
+    let todoId =  req.params.todoId;
+
+    return server.db.models()
+        .then(models => models.Todo.destroy({
+                where: {
+                    id: todoId
+                }
+        }))
+        .then(() => ({data: {id: todoId}}));
 }
 
 

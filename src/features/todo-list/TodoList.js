@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import uuid from 'react-uuid';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {fetchTodos, createTodo} from './todo-list-actions.js';
+import {fetchTodos, createTodo, deleteTodo} from './todo-list-actions.js';
 import TodoItem from './TodoItem.js';
 import TodoItemEditor from './TodoItemEditor.js';
 
@@ -19,6 +19,7 @@ class TodoList extends Component {
         this.addEmptyTodo = this.addEmptyTodo.bind(this);
         this.closeTodoEditor = this.closeTodoEditor.bind(this);
         this.createOrUpdateTodo = this.createOrUpdateTodo.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
         this.state = {
             editMode: false,
             editModeType: ""
@@ -39,7 +40,7 @@ class TodoList extends Component {
                 </thead>
                 <tbody>
                 {this.props.todos.map((todo) => {
-                    return <TodoItem key={todo.uuid} todo={todo}/>
+                    return <TodoItem delteTodo={this.deleteTodo} key={todo.uuid} todo={todo}/>
                 })}
                 </tbody>
             </table>
@@ -87,6 +88,11 @@ class TodoList extends Component {
         this.props.createTodo(todoItem);
     }
 
+    deleteTodo(todoId) {
+        console.log('deleteTodo ', todoId);
+        this.props.deleteTodo(todoId);
+    }
+
     updateTodo() {
 
     }
@@ -102,7 +108,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchTodos: todos => dispatch(fetchTodos()),
-        createTodo: todo => dispatch(createTodo(todo))
+        createTodo: todo => dispatch(createTodo(todo)),
+        deleteTodo: todo => dispatch(deleteTodo(todo))
     };
 };
 
