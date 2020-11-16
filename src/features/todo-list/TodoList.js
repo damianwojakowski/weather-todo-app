@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import uuid from 'react-uuid';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {fetchTodos, createTodo} from './todo-list-actions.js';
@@ -82,8 +83,9 @@ class TodoList extends Component {
         }
     }
 
-    createNewTodo() {
-
+    createNewTodo(todoItem) {
+        todoItem.uuid = uuid();
+        this.props.createTodo(todoItem);
     }
 
     updateTodo() {

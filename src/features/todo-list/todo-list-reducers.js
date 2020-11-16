@@ -18,6 +18,7 @@ function todosReducer(state = initialState, action) {
             todos: action.payload
         });
     } else if (action.type === ACTIONS.TODO_CREATED) {
+        console.log("action.payload: ", action);
         return Object.assign({}, state, {
             todos: state.todos.concat(action.payload)
         });

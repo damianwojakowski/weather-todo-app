@@ -3,6 +3,10 @@ import { ofType } from 'redux-observable';
 import { mergeMap, map } from 'rxjs/operators';
 import {ACTIONS, listTodos, todoCreated} from './todo-list-actions.js';
 
+const headers = {
+    'Content-Type': 'application/json'
+};
+
 export const fetchTodos = action$ => action$.pipe(
     ofType(ACTIONS.FETCH_TODOS),
     mergeMap(() =>
@@ -14,12 +18,19 @@ export const fetchTodos = action$ => action$.pipe(
 
 export const createTodo = action$ => action$.pipe(
     ofType(ACTIONS.CREATE_TODO),
-    mergeMap(() =>
+    mergeMap(action =>
         ajax({
             url: `/api/todo/create`,
-            method: 'POST'
+            method: 'POST',
+            headers: headers,
+            body: {
+                priority: action.payload.priority,
+                title: action.payload.title,
+                description: action.payload.description
+            }
         }).pipe(
-            map(response => todoCreated(response.data))
+            map(response => response.response.data),
+            map(response => todoCreated(response))
         )
     )
 );

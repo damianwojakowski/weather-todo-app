@@ -144,6 +144,7 @@ export default class Server {
             next();
         });
         this.express.use(express.static(path.join(ROOT_DIR, 'public')));
+        this.express.use(express.json());
     }
 
     /**

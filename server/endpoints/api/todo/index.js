@@ -13,7 +13,7 @@ import updateHandler from './update.js';
 export default function registerTodo(path, server) {
     server.registerHandler('get', `${path}/list`, listHandler);
     server.registerHandler('post', `${path}/create`, createHandler);
-    server.registerHandler('post', `${path}/delete`, deleteHandler);
-    server.registerHandler('post', `${path}/update`, updateHandler);
+    server.registerHandler('delete', `${path}/delete`, deleteHandler);
+    server.registerHandler('put', `${path}/update`, updateHandler);
 }
 

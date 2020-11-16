@@ -1,4 +1,3 @@
-
 import AppException from '../../../exceptions/AppException.js';
 
 /**
@@ -8,8 +7,17 @@ import AppException from '../../../exceptions/AppException.js';
  * @property {Response} res response object
  * @returns {Promise<Object|String>}
  */
-export default function todoCreateHandler() {
-    return AppException.reject('Internal error', 'Creating todos not implemented');
+export default function todoCreateHandler(server, req, res) {
+    return server.db.models()
+        .then(models => (
+            models.Todo.create({
+                uuid: req.body.uuid,
+                title: req.body.title,
+                description: req.body.description,
+                priority: req.body.priority,
+            }))
+        )
+        .then(result => ({data: result.dataValues}));
 }
 
 
