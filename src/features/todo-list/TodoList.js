@@ -7,7 +7,8 @@ import TodoItemEditor from './TodoItemEditor.js';
 
 const EDIT_MODE_TYPES = {
     EDIT: 'EDIT',
-    CREATE_NEW: 'CREATE_NEW'
+    CREATE_NEW: 'CREATE_NEW',
+    NONE: ''
 };
 
 class TodoList extends Component {
@@ -15,6 +16,7 @@ class TodoList extends Component {
     constructor(props) {
         super(props);
         this.addEmptyTodo = this.addEmptyTodo.bind(this);
+        this.closeTodoEditor = this.closeTodoEditor.bind(this);
         this.state = {
             editMode: false,
             modeType: ""
@@ -41,7 +43,7 @@ class TodoList extends Component {
 
             <button className="btn btn-success" onClick={this.addEmptyTodo}>Create Todo</button>
 
-            {this.isInEditMode() && <TodoItemEditor />}
+            {this.isInEditMode() && <TodoItemEditor handleCancelButton={this.closeTodoEditor} />}
         </div>;
     }
 
@@ -57,6 +59,13 @@ class TodoList extends Component {
         this.setState({
             editMode: true,
             modeType: EDIT_MODE_TYPES.CREATE_NEW
+        });
+    }
+
+    closeTodoEditor() {
+        this.setState({
+            editMode: false,
+            modeType: EDIT_MODE_TYPES.NONE
         });
     }
 
