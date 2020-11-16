@@ -20,9 +20,12 @@ class TodoList extends Component {
         this.closeTodoEditor = this.closeTodoEditor.bind(this);
         this.createOrUpdateTodo = this.createOrUpdateTodo.bind(this);
         this.deleteTodo = this.deleteTodo.bind(this);
+        this.editTodo = this.editTodo.bind(this);
+
         this.state = {
             editMode: false,
-            editModeType: ""
+            editModeType: "",
+            editedTodo: null
         };
     }
 
@@ -40,7 +43,7 @@ class TodoList extends Component {
                 </thead>
                 <tbody>
                 {this.props.todos.map((todo) => {
-                    return <TodoItem delteTodo={this.deleteTodo} key={todo.uuid} todo={todo}/>
+                    return <TodoItem delteTodo={this.deleteTodo} editTodo={this.editTodo} key={todo.uuid} todo={todo}/>
                 })}
                 </tbody>
             </table>
@@ -48,6 +51,7 @@ class TodoList extends Component {
             {this.isInEditMode() && <TodoItemEditor
                 cancelButtonHandler={this.closeTodoEditor}
                 saveButtonHandler={this.createOrUpdateTodo}
+                editedTodo={this.state.editedTodo}
             />
             }
         </div>;
@@ -64,14 +68,16 @@ class TodoList extends Component {
     addEmptyTodo() {
         this.setState({
             editMode: true,
-            editModeType: EDIT_MODE_TYPES.CREATE_NEW
+            editModeType: EDIT_MODE_TYPES.CREATE_NEW,
+            editedTodo: null
         });
     }
 
     closeTodoEditor() {
         this.setState({
             editMode: false,
-            editModeType: EDIT_MODE_TYPES.NONE
+            editModeType: EDIT_MODE_TYPES.NONE,
+            editedTodo: null
         });
     }
 
@@ -81,6 +87,8 @@ class TodoList extends Component {
         } else if (this.state.editModeType === EDIT_MODE_TYPES.EDIT) {
             this.updateTodo(todoItem);
         }
+
+        this.closeTodoEditor();
     }
 
     createNewTodo(todoItem) {
@@ -88,13 +96,26 @@ class TodoList extends Component {
         this.props.createTodo(todoItem);
     }
 
+    updateTodo(todoItem) {
+
+    }
+
     deleteTodo(todoId) {
         console.log('deleteTodo ', todoId);
         this.props.deleteTodo(todoId);
     }
 
-    updateTodo() {
+    editTodo(todoId) {
+        this.setState({
+            editMode: true,
+            editModeType: EDIT_MODE_TYPES.EDIT,
+            editedTodo: this.getEditedTodo(todoId)
+        });
+    }
 
+    getEditedTodo(todoId) {
+        let a = this.props.todos.filter(todo => todo.id === todoId);
+        return a.pop();
     }
 
 }

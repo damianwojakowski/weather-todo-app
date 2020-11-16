@@ -1,6 +1,3 @@
-
-import AppException from '../../../exceptions/AppException.js';
-
 /**
  * Handles delete todo request
  * @property {Server} server Server instance

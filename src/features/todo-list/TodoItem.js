@@ -10,6 +10,10 @@ export default class TodoItem extends Component {
         this.props.delteTodo(todoId);
     }
 
+    editTodo(todoId) {
+        this.props.editTodo(todoId);
+    }
+
     render() {
         return <tr>
             <th scope="row">{this.props.todo.priority}</th>
@@ -17,7 +21,7 @@ export default class TodoItem extends Component {
             <td>{this.props.todo.description}</td>
             <td>
                 <button onClick={() => {this.deleteTodo(this.props.todo.id)}} className="btn btn-danger">Delete</button>&nbsp;
-                <button className="btn btn-primary">Edit</button></td>
+                <button onClick={() => {this.editTodo(this.props.todo.id)}} className="btn btn-primary">Edit</button></td>
         </tr>;
     }
 }

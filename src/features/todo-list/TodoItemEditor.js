@@ -20,6 +20,12 @@ export default class TodoItemEditor extends Component {
         };
     }
 
+    componentDidMount() {
+        if (this.props.editedTodo !== null) {
+            this.setState(this.props.editedTodo);
+        }
+    }
+
     cancelButtonHandler() {
         this.props.cancelButtonHandler();
     }
