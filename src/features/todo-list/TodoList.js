@@ -17,6 +17,7 @@ class TodoList extends Component {
         super(props);
         this.addEmptyTodo = this.addEmptyTodo.bind(this);
         this.closeTodoEditor = this.closeTodoEditor.bind(this);
+        this.createOrUpdateTodo = this.createOrUpdateTodo.bind(this);
         this.state = {
             editMode: false,
             modeType: ""
@@ -43,7 +44,11 @@ class TodoList extends Component {
 
             <button className="btn btn-success" onClick={this.addEmptyTodo}>Create Todo</button>
 
-            {this.isInEditMode() && <TodoItemEditor handleCancelButton={this.closeTodoEditor} />}
+            {this.isInEditMode() && <TodoItemEditor
+                cancelButtonHandler={this.closeTodoEditor}
+                saveButtonHandler={this.createOrUpdateTodo}
+            />
+            }
         </div>;
     }
 
@@ -67,6 +72,10 @@ class TodoList extends Component {
             editMode: false,
             modeType: EDIT_MODE_TYPES.NONE
         });
+    }
+
+    createOrUpdateTodo() {
+        this.closeTodoEditor();
     }
 
 }

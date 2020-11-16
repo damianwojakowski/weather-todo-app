@@ -8,8 +8,12 @@ export default class TodoItemEditor extends Component {
         super(props);
     }
 
-    cancelButtonClicked() {
-        return this.props.handleCancelButton;
+    cancelButtonHandler() {
+        return this.props.cancelButtonHandler;
+    }
+
+    saveButtonHandler() {
+        return this.props.saveButtonHandler;
     }
 
     render() {
@@ -40,8 +44,8 @@ export default class TodoItemEditor extends Component {
                     </form>
 
                     <div>
-                        <button onClick={this.cancelButtonClicked()} className="btn btn-danger">Cancel</button>&nbsp;
-                        <button className="btn btn-primary">Save</button>
+                        <button onClick={this.cancelButtonHandler()} className="btn btn-danger">Cancel</button>&nbsp;
+                        <button onClick={this.saveButtonHandler()} className="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>
