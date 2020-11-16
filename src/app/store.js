@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import serviceAvailabilityReducer from '../features/service-availability/service-availability-slice.js';
-import updateWeatherReducer from '../features/weather/weather-reducer.js';
-import todosReducer from '../features/todo-list/todo-list-reducers.js';
+import { createEpicMiddleware } from 'redux-observable';
+import {rootReducer} from './reducers.js';
+import {rootEpic} from './epics.js';
+
+const epicMiddleware = createEpicMiddleware();
 
 export default configureStore({
-    reducer: {
-        serviceAvailability: serviceAvailabilityReducer,
-        weather: updateWeatherReducer,
-        todos: todosReducer
-    },
+    reducer: rootReducer,
+    middleware: [epicMiddleware]
 });
+
+epicMiddleware.run(rootEpic);
