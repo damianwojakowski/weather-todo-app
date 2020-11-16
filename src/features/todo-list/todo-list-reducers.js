@@ -17,6 +17,10 @@ function todosReducer(state = initialState, action) {
         return Object.assign({}, state, {
             todos: action.payload
         });
+    } else if (action.type === ACTIONS.TODO_CREATED) {
+        return Object.assign({}, state, {
+            todos: state.todos.concat(action.payload)
+        });
     }
 
     return state;
