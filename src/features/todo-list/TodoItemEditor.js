@@ -6,14 +6,35 @@ export default class TodoItemEditor extends Component {
 
     constructor(props) {
         super(props);
+        this.saveButtonHandler = this.saveButtonHandler.bind(this);
+        this.handleTodoChange = this.handleTodoChange.bind(this);
+        this.state = {
+            id: null,
+            uuid: null,
+            title: "",
+            description: "",
+            priority: 1,
+            createdA: null,
+            updatedAt: null
+        };
     }
 
     cancelButtonHandler() {
         return this.props.cancelButtonHandler;
     }
 
-    saveButtonHandler() {
-        return this.props.saveButtonHandler;
+    saveButtonHandler(event) {
+        event.preventDefault();
+        return this.props.saveButtonHandler(this.state);
+    }
+
+    handleTodoChange(event) {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     render() {
@@ -23,7 +44,7 @@ export default class TodoItemEditor extends Component {
                     <form>
                         <div className="form-group">
                             <label htmlFor="priority">Priority</label>
-                            <select className="form-control" id="priority">
+                            <select value={this.state.priority} onChange={this.handleTodoChange} name="priority" className="form-control" id="priority">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -34,19 +55,19 @@ export default class TodoItemEditor extends Component {
 
                         <div className="form-group">
                             <label htmlFor="title">Title</label>
-                            <input type="text" className="form-control" id="title" />
+                            <input name="title" value={this.state.title} onChange={this.handleTodoChange} type="text" className="form-control" id="title" />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="description">Description</label>
-                            <textarea className="form-control" id="description" rows="5" />
+                            <textarea name="description" value={this.state.description} onChange={this.handleTodoChange} className="form-control" id="description" rows="5" />
+                        </div>
+
+                        <div>
+                            <button type="button" onClick={this.cancelButtonHandler()} className="btn btn-danger">Cancel</button>&nbsp;
+                            <button type="submit" onClick={this.saveButtonHandler} className="btn btn-primary">Save</button>
                         </div>
                     </form>
-
-                    <div>
-                        <button onClick={this.cancelButtonHandler()} className="btn btn-danger">Cancel</button>&nbsp;
-                        <button onClick={this.saveButtonHandler()} className="btn btn-primary">Save</button>
-                    </div>
                 </div>
             </div>
         );

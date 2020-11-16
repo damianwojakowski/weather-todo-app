@@ -20,7 +20,7 @@ class TodoList extends Component {
         this.createOrUpdateTodo = this.createOrUpdateTodo.bind(this);
         this.state = {
             editMode: false,
-            modeType: ""
+            editModeType: ""
         };
     }
 
@@ -63,19 +63,31 @@ class TodoList extends Component {
     addEmptyTodo() {
         this.setState({
             editMode: true,
-            modeType: EDIT_MODE_TYPES.CREATE_NEW
+            editModeType: EDIT_MODE_TYPES.CREATE_NEW
         });
     }
 
     closeTodoEditor() {
         this.setState({
             editMode: false,
-            modeType: EDIT_MODE_TYPES.NONE
+            editModeType: EDIT_MODE_TYPES.NONE
         });
     }
 
-    createOrUpdateTodo() {
-        this.closeTodoEditor();
+    createOrUpdateTodo(todoItem) {
+        if (this.state.editModeType === EDIT_MODE_TYPES.CREATE_NEW) {
+            this.createNewTodo(todoItem);
+        } else if (this.state.editModeType === EDIT_MODE_TYPES.EDIT) {
+            this.updateTodo(todoItem);
+        }
+    }
+
+    createNewTodo() {
+
+    }
+
+    updateTodo() {
+
     }
 
 }
