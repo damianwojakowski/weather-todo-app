@@ -1,33 +1,63 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {fetchTodos} from './todo-list-actions.js';
+import {fetchTodos, createTodo} from './todo-list-actions.js';
 import TodoItem from './TodoItem.js';
+import TodoItemEditor from './TodoItemEditor.js';
+
+const EDIT_MODE_TYPES = {
+    EDIT: 'EDIT',
+    CREATE_NEW: 'CREATE_NEW'
+};
 
 class TodoList extends Component {
+
+    constructor(props) {
+        super(props);
+        this.addEmptyTodo = this.addEmptyTodo.bind(this);
+        this.state = {
+            editMode: false,
+            modeType: ""
+        };
+    }
 
     render() {
         return <div className="container">
             <table className="table table-striped">
                 <thead>
-                    <tr>
-                        <th scope="col">Priority</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Actions</th>
-                    </tr>
+                <tr>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Actions</th>
+                </tr>
                 </thead>
                 <tbody>
-                    {this.props.todos.map((todo) => {
-                        return <TodoItem key={todo.uuid} todo={todo} />
-                    })}
+                {this.props.todos.map((todo) => {
+                    return <TodoItem key={todo.uuid} todo={todo}/>
+                })}
                 </tbody>
             </table>
+
+            <button className="btn btn-success" onClick={this.addEmptyTodo}>Create Todo</button>
+
+            {this.isInEditMode() && <TodoItemEditor />}
         </div>;
     }
 
     componentDidMount() {
         this.props.fetchTodos();
+    }
+
+    isInEditMode() {
+        return this.state.editMode;
+    }
+
+    addEmptyTodo() {
+        this.setState({
+            editMode: true,
+            modeType: EDIT_MODE_TYPES.CREATE_NEW
+        });
     }
 
 }
@@ -40,7 +70,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchTodos: todos => dispatch(fetchTodos())
+        fetchTodos: todos => dispatch(fetchTodos()),
+        createTodo: todo => dispatch(createTodo(todo))
     };
 };
 
