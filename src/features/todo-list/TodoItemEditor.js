@@ -7,6 +7,7 @@ export default class TodoItemEditor extends Component {
     constructor(props) {
         super(props);
         this.saveButtonHandler = this.saveButtonHandler.bind(this);
+        this.cancelButtonHandler = this.cancelButtonHandler.bind(this);
         this.handleTodoChange = this.handleTodoChange.bind(this);
         this.state = {
             id: null,
@@ -20,12 +21,12 @@ export default class TodoItemEditor extends Component {
     }
 
     cancelButtonHandler() {
-        return this.props.cancelButtonHandler;
+        this.props.cancelButtonHandler();
     }
 
     saveButtonHandler(event) {
         event.preventDefault();
-        return this.props.saveButtonHandler(this.state);
+        this.props.saveButtonHandler(this.state);
     }
 
     handleTodoChange(event) {
@@ -64,7 +65,7 @@ export default class TodoItemEditor extends Component {
                         </div>
 
                         <div>
-                            <button type="button" onClick={this.cancelButtonHandler()} className="btn btn-danger">Cancel</button>&nbsp;
+                            <button type="button" onClick={this.cancelButtonHandler} className="btn btn-danger">Cancel</button>&nbsp;
                             <button type="submit" onClick={this.saveButtonHandler} className="btn btn-primary">Save</button>
                         </div>
                     </form>
