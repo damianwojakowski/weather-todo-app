@@ -8,7 +8,7 @@ import AppException from '../../../exceptions/AppException.js';
  * @property {Response} res response object
  * @returns {Promise<Object|String>}
  */
-export default function todoDeleteHandler() {
+export default function todoDeleteHandler(server, req, res) {
     return AppException.reject('Internal error', 'Deleting todos not implemented');
 }
 

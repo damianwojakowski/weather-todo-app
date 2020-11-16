@@ -27,6 +27,7 @@ class TodoList extends Component {
 
     render() {
         return <div className="container">
+            <h2>Todo Items</h2> <button className="btn btn-success" onClick={this.addEmptyTodo}>Create Todo</button>
             <table className="table table-striped">
                 <thead>
                 <tr>
@@ -42,8 +43,6 @@ class TodoList extends Component {
                 })}
                 </tbody>
             </table>
-
-            <button className="btn btn-success" onClick={this.addEmptyTodo}>Create Todo</button>
 
             {this.isInEditMode() && <TodoItemEditor
                 cancelButtonHandler={this.closeTodoEditor}
